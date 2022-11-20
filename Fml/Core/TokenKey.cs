@@ -12,5 +12,8 @@
         Comma,
         NewLine,
         Pound,
+        Section,
+        ValuePair,
+        ArrayPair,
     }
 }

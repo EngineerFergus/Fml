@@ -11,5 +11,6 @@
         Space,
         Comma,
         NewLine,
+        Pound,
     }
 }

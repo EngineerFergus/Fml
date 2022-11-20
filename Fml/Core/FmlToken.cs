@@ -15,6 +15,11 @@
             Idx = idx;
             Line = line;
             Position = position;
-        }   
+        }
+        
+        public FmlToken MakeWithIndex(int newIdx)
+        {
+            return new FmlToken(Key, Contents, newIdx, Line, Position);
+        }
     }
 }

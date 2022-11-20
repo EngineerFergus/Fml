@@ -32,6 +32,7 @@ namespace Fml.Tests.Core
         [DataRow("[name] ", 4)]
         [DataRow("\"this is an input\"", 1)]
         [DataRow(",", 1)]
+        [DataRow("#", 1)]
         public void MatchesCorrectly_Length(string input, int desiredLength)
         {
             var tokens = GetTokens(input);
@@ -49,6 +50,7 @@ namespace Fml.Tests.Core
         [DataRow("name", TokenKey.Value)]
         [DataRow("c:\\temp\\data.sqlite", TokenKey.Value)]
         [DataRow(",", TokenKey.Comma)]
+        [DataRow("#", TokenKey.Pound)]
         public void MatchesCorrectly_Key(string input, TokenKey desiredKey)
         {
             var tokens = GetTokens(input);
@@ -63,6 +65,7 @@ namespace Fml.Tests.Core
         [DataRow("=")]
         [DataRow(" ")]
         [DataRow(",")]
+        [DataRow("#")]
         [DataRow("\"name\"")]
         [DataRow("name")]
         [DataRow("c:\\temp\\data.sqlite")]
@@ -81,6 +84,80 @@ namespace Fml.Tests.Core
         {
             var tokens = GetTokens(input);
             for (int i = 0; i < tokens.Length; i++)
+            {
+                Assert.AreEqual(expectedKeys[i], tokens[i].Key);
+            }
+        }
+
+        [TestMethod]
+        public void TestExtendedExampleA()
+        {
+            StringBuilder builder = new();
+            builder.AppendLine("[app]");
+            builder.AppendLine("name = Image Annotator");
+
+            TokenKey[] expectedKeys =
+            {
+                TokenKey.LeftSquareBracket,
+                TokenKey.Value,
+                TokenKey.RightSquareBracket,
+                TokenKey.NewLine,
+                TokenKey.Value,
+                TokenKey.Space,
+                TokenKey.Equals,
+                TokenKey.Space,
+                TokenKey.Value,
+                TokenKey.Space,
+                TokenKey.Value
+            };
+
+            var tokens = GetTokens(builder.ToString());
+            Assert.AreEqual(expectedKeys.Length, tokens.Length);
+
+            for (int i = 0; i < expectedKeys.Length; i++)
+            {
+                Assert.AreEqual(expectedKeys[i], tokens[i].Key);
+            }
+        }
+
+        [TestMethod]
+        public void TestExtendedExampleB()
+        {
+            StringBuilder builder = new();
+            builder.AppendLine("[app]");
+            builder.AppendLine("name = Image Annotator # comment");
+            builder.AppendLine("# comment");
+            builder.AppendLine("\" # quoted string \"");
+
+            TokenKey[] expectedKeys =
+            {
+                TokenKey.LeftSquareBracket,
+                TokenKey.Value,
+                TokenKey.RightSquareBracket,
+                TokenKey.NewLine,
+                TokenKey.Value,
+                TokenKey.Space,
+                TokenKey.Equals,
+                TokenKey.Space,
+                TokenKey.Value,
+                TokenKey.Space,
+                TokenKey.Value,
+                TokenKey.Space,
+                TokenKey.Pound,
+                TokenKey.Space,
+                TokenKey.Value,
+                TokenKey.NewLine,
+                TokenKey.Pound,
+                TokenKey.Space,
+                TokenKey.Value,
+                TokenKey.NewLine,
+                TokenKey.Value
+            };
+
+            var tokens = GetTokens(builder.ToString());
+            Assert.AreEqual(expectedKeys.Length, tokens.Length);
+
+            for (int i = 0; i < expectedKeys.Length; i++)
             {
                 Assert.AreEqual(expectedKeys[i], tokens[i].Key);
             }

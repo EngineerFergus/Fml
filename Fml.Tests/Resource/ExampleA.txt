@@ -1,0 +1,9 @@
+﻿[app]
+name = Image Annotator
+version = 0.1 R1
+date = 2022-10-10
+
+[database]
+server = 255.255.255.255
+id = 0123456789
+# this is a comment

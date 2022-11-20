@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fml;
 using Fml.Core;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fml.Tests.Core
 {
@@ -13,30 +14,74 @@ namespace Fml.Tests.Core
     {
         private readonly Tokenizer _tokenizer = new();
 
-        [TestMethod]
-        public void MatchesSquareBrackets()
+        private FmlToken[] GetTokens(string input)
         {
-            using TextReader reader = new StringReader("[]");
-            var tokens = _tokenizer.Tokenize(reader);
-            Assert.AreEqual(2, tokens.Length);
-            Assert.AreEqual(TokenKey.LeftSquareBracket, tokens[0].Key);
-            Assert.AreEqual("[", tokens[0].Contents);
-            Assert.AreEqual(TokenKey.RightSquareBracket, tokens[1].Key);
-            Assert.AreEqual("]", tokens[1].Contents);
+            using TextReader reader = new StringReader(input);
+            return _tokenizer.Tokenize(reader);
         }
 
-        [TestMethod]
-        public void MatchesQuotedString()
+        [DataTestMethod]
+        [DataRow("[]", 2)]
+        [DataRow("{}", 2)]
+        [DataRow("name", 1)]
+        [DataRow("\"name\"", 1)]
+        [DataRow("=", 1)]
+        [DataRow(" ", 1)]
+        [DataRow("   ", 3)]
+        [DataRow("[name]", 3)]
+        [DataRow("[name] ", 4)]
+        [DataRow("\"this is an input\"", 1)]
+        [DataRow(",", 1)]
+        public void MatchesCorrectly_Length(string input, int desiredLength)
         {
-            string input = "\"My String\"";
-            using TextReader reader = new StringReader(input);
-            var tokens = _tokenizer.Tokenize(reader);
-            Assert.AreEqual(1, tokens.Length);
-            Assert.AreEqual(TokenKey.Value, tokens[0].Key);
+            var tokens = GetTokens(input);
+            Assert.AreEqual(desiredLength, tokens.Length);
+        }
+
+        [DataTestMethod]
+        [DataRow("[", TokenKey.LeftSquareBracket)]
+        [DataRow("]", TokenKey.RightSquareBracket)]
+        [DataRow("{", TokenKey.LeftCurlyBrace)]
+        [DataRow("}", TokenKey.RightCurlyBrace)]
+        [DataRow("=", TokenKey.Equals)]
+        [DataRow(" ", TokenKey.Space)]
+        [DataRow("\"name\"", TokenKey.Value)]
+        [DataRow("name", TokenKey.Value)]
+        [DataRow("c:\\temp\\data.sqlite", TokenKey.Value)]
+        [DataRow(",", TokenKey.Comma)]
+        public void MatchesCorrectly_Key(string input, TokenKey desiredKey)
+        {
+            var tokens = GetTokens(input);
+            Assert.AreEqual(desiredKey, tokens[0].Key);
+        }
+
+        [DataTestMethod]
+        [DataRow("[")]
+        [DataRow("]")]
+        [DataRow("{")]
+        [DataRow("}")]
+        [DataRow("=")]
+        [DataRow(" ")]
+        [DataRow(",")]
+        [DataRow("\"name\"")]
+        [DataRow("name")]
+        [DataRow("c:\\temp\\data.sqlite")]
+        public void MatchesCorrectly_Content(string input)
+        {
+            var tokens = GetTokens(input);
             Assert.AreEqual(input, tokens[0].Contents);
         }
 
-        [TestMethod]
-        public void Matches
+        [DataTestMethod]
+        [DataRow("[name]", new TokenKey[] { TokenKey.LeftSquareBracket, TokenKey.Value, TokenKey.RightSquareBracket })]
+        [DataRow("{name,name}", new TokenKey[] { TokenKey.LeftCurlyBrace, TokenKey.Value, TokenKey.Comma, TokenKey.Value, TokenKey.RightCurlyBrace })]
+        public void Test(string input, TokenKey[] expectedKeys)
+        {
+            var tokens = GetTokens(input);
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                Assert.AreEqual(expectedKeys[i], tokens[i].Key);
+            }
+        }
     }
 }

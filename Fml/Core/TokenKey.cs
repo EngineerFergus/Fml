@@ -6,6 +6,9 @@
         RightSquareBracket,
         LeftCurlyBrace,
         RightCurlyBrace,
-        Value
+        Value,
+        Equals,
+        Space,
+        Comma
     }
 }

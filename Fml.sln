@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fml", "Fml\Fml.csproj", "{9E77A829-1676-4EA8-9023-B0C3D67498C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fml.ConsoleApp", "Fml.ConsoleApp\Fml.ConsoleApp.csproj", "{EEF80A14-AC35-4C4C-BE9D-56E6DC033E89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fml.Tests", "Fml.Tests\Fml.Tests.csproj", "{95A1DCFE-ED7B-4948-ADA7-BA93287D3EB1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E77A829-1676-4EA8-9023-B0C3D67498C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E77A829-1676-4EA8-9023-B0C3D67498C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E77A829-1676-4EA8-9023-B0C3D67498C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E77A829-1676-4EA8-9023-B0C3D67498C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF80A14-AC35-4C4C-BE9D-56E6DC033E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF80A14-AC35-4C4C-BE9D-56E6DC033E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF80A14-AC35-4C4C-BE9D-56E6DC033E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF80A14-AC35-4C4C-BE9D-56E6DC033E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A1DCFE-ED7B-4948-ADA7-BA93287D3EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A1DCFE-ED7B-4948-ADA7-BA93287D3EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A1DCFE-ED7B-4948-ADA7-BA93287D3EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A1DCFE-ED7B-4948-ADA7-BA93287D3EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6BF13E5-E8BA-4086-B6B2-B2730FDC1119}
+	EndGlobalSection
+EndGlobal

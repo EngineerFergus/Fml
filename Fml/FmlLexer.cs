@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Fml
 {
-    public class Tokenizer
+    public class FmlLexer
     {
         private Lexer? _lexer;
 
-        public Tokenizer()
+        public FmlLexer()
         {
 
         }
@@ -20,13 +20,22 @@ namespace Fml
         {
             _lexer = new Lexer(reader, FmlTokenDefs.Tokens);
 
-            List<FmlToken> tokens = new List<FmlToken>();
+            List<FmlToken> tokens = new();
+            int pastLine = 2;
 
             while (_lexer.Next())
             {
                 if (_lexer.TokenContents != null && _lexer.TokenContents != string.Empty)
                 {
-                    FmlToken token = new FmlToken(_lexer.Key, _lexer.TokenContents, tokens.Count);
+                    if (pastLine < _lexer.LineNumber)
+                    {
+                        FmlToken newLinetoken = new(TokenKey.NewLine, "\n", tokens.Count, _lexer.LineNumber,
+                            _lexer.Position + _lexer.TokenContents.Length);
+                        tokens.Add(newLinetoken);
+                        pastLine = _lexer.LineNumber;
+                    }
+
+                    FmlToken token = new(_lexer.Key, _lexer.TokenContents, tokens.Count, _lexer.LineNumber, _lexer.Position);
                     tokens.Add(token);
                 }
                 else

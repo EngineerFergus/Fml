@@ -9,6 +9,7 @@
         Value,
         Equals,
         Space,
-        Comma
+        Comma,
+        NewLine,
     }
 }

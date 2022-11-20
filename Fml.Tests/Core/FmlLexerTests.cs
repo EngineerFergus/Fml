@@ -12,12 +12,12 @@ namespace Fml.Tests.Core
     [TestClass]
     public class FmlLexerTests
     {
-        private readonly Tokenizer _tokenizer = new();
+        private readonly FmlLexer _lexer = new();
 
         private FmlToken[] GetTokens(string input)
         {
             using TextReader reader = new StringReader(input);
-            return _tokenizer.Tokenize(reader);
+            return _lexer.Tokenize(reader);
         }
 
         [DataTestMethod]
@@ -74,6 +74,8 @@ namespace Fml.Tests.Core
 
         [DataTestMethod]
         [DataRow("[name]", new TokenKey[] { TokenKey.LeftSquareBracket, TokenKey.Value, TokenKey.RightSquareBracket })]
+        [DataRow("name\nname", new TokenKey[] { TokenKey.Value, TokenKey.NewLine, TokenKey.Value })]
+        [DataRow("name = fergus", new TokenKey[] { TokenKey.Value, TokenKey.Space, TokenKey.Equals, TokenKey.Space, TokenKey.Value })]
         [DataRow("{name,name}", new TokenKey[] { TokenKey.LeftCurlyBrace, TokenKey.Value, TokenKey.Comma, TokenKey.Value, TokenKey.RightCurlyBrace })]
         public void Test(string input, TokenKey[] expectedKeys)
         {

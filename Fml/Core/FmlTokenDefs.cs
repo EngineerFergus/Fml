@@ -13,6 +13,7 @@
             new TokenDefinition(@"\=", TokenKey.Equals),
             new TokenDefinition(@"\ ", TokenKey.Space),
             new TokenDefinition(@"\,", TokenKey.Comma),
+            new TokenDefinition(@"/[\r\n]+/", TokenKey.NewLine),
         };
     }
 }

@@ -14,4 +14,5 @@ data = 1977-01-01
 server = 255.255.255.255
 id = 0123456789
 files = { c:\temp\example.dat, e:\temp\example.dat }
+# comment about the database
 ```

@@ -1,4 +1,6 @@
-﻿namespace Fml.Core
+﻿using Fml.Core;
+
+namespace Fml.Scanner
 {
     internal static class FmlTokenDefs
     {

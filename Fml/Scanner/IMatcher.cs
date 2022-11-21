@@ -1,4 +1,4 @@
-﻿namespace Fml
+﻿namespace Fml.Scanner
 {
     public interface IMatcher
     {

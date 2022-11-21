@@ -21,5 +21,10 @@
         {
             return new FmlToken(Key, Contents, newIdx, Line, Position);
         }
+
+        public FmlToken MakeWithValue(FmlToken A, FmlToken B)
+        {
+            return new FmlToken(A.Key, A.Contents + B.Contents, A.Idx, A.Line, A.Position);
+        }
     }
 }

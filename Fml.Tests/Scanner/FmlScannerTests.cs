@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Fml.Core;
+using Fml.Scanner;
 using System.Text;
-using System.Threading.Tasks;
-using Fml;
-using Fml.Core;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Fml.Tests.Core
+namespace Fml.Tests.Scanner
 {
     [TestClass]
-    public class FmlLexerTests
+    public class FmlScannerTests
     {
-        private readonly FmlLexer _lexer = new();
+        private readonly FmlScanner _lexer = new();
 
         private FmlToken[] GetTokens(string input)
         {

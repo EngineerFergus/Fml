@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Fml
+namespace Fml.Scanner
 {
     internal class RegexMatcher : IMatcher
     {

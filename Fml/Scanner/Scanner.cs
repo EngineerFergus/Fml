@@ -1,6 +1,8 @@
-﻿namespace Fml.Core
+﻿using Fml.Core;
+
+namespace Fml.Scanner
 {
-    internal sealed class Lexer
+    internal sealed class Scanner
     {
         private readonly TextReader _reader;
         private readonly TokenDefinition[] _tokenDefinitions;
@@ -12,7 +14,7 @@
         public int LineNumber { get; private set; }
         public int Position { get; private set; }
 
-        public Lexer(TextReader reader, TokenDefinition[] tokenDefinitions)
+        public Scanner(TextReader reader, TokenDefinition[] tokenDefinitions)
         {
             _reader = reader;
             _tokenDefinitions = tokenDefinitions;
@@ -28,7 +30,7 @@
                 ++LineNumber;
                 Position = 0;
             }
-            while(_lineRemaining != null && _lineRemaining.Length == 0);
+            while (_lineRemaining != null && _lineRemaining.Length == 0);
         }
 
         public FmlToken[] Tokenize()
@@ -95,7 +97,7 @@
 
         public bool TryParseToken()
         {
-            if(_lineRemaining == null)
+            if (_lineRemaining == null)
             {
                 return false;
             }

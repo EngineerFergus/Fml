@@ -1,4 +1,6 @@
-﻿namespace Fml.Core
+﻿using Fml.Core;
+
+namespace Fml.Scanner
 {
     public sealed class TokenDefinition
     {

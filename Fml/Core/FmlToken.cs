@@ -22,9 +22,9 @@
             return new FmlToken(Key, Contents, newIdx, Line, Position);
         }
 
-        public FmlToken MakeWithValue(FmlToken A, FmlToken B)
+        public FmlToken MakeWithCombinedContents(FmlToken A)
         {
-            return new FmlToken(A.Key, A.Contents + B.Contents, A.Idx, A.Line, A.Position);
+            return new FmlToken(Key, Contents + A.Contents, Idx, Line, Position);
         }
     }
 }

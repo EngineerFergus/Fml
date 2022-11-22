@@ -2,9 +2,7 @@
 {
     public enum ExprKey
     {
-        Equals,
         Section,
-        Identifier,
-        Value
+        Assignment
     }
 }

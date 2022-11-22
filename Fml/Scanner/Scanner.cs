@@ -58,6 +58,8 @@ namespace Fml.Scanner
                 tokens.Add(token);
             }
 
+            tokens.Add(new FmlToken(TokenKey.EOF, "EOF", tokens.Count, LineNumber++, 0));
+
             return tokens.ToArray();
         }
 

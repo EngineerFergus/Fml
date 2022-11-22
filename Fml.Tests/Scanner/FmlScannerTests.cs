@@ -16,18 +16,18 @@ namespace Fml.Tests.Scanner
         }
 
         [DataTestMethod]
-        [DataRow("[]", 2)]
-        [DataRow("{}", 2)]
-        [DataRow("name", 1)]
-        [DataRow("\"name\"", 1)]
-        [DataRow("=", 1)]
-        [DataRow(" ", 1)]
-        [DataRow("   ", 3)]
-        [DataRow("[name]", 3)]
-        [DataRow("[name] ", 4)]
-        [DataRow("\"this is an input\"", 1)]
-        [DataRow(",", 1)]
-        [DataRow("#", 1)]
+        [DataRow("[]", 3)]
+        [DataRow("{}", 3)]
+        [DataRow("name", 2)]
+        [DataRow("\"name\"", 2)]
+        [DataRow("=", 2)]
+        [DataRow(" ", 2)]
+        [DataRow("   ", 4)]
+        [DataRow("[name]", 4)]
+        [DataRow("[name] ", 5)]
+        [DataRow("\"this is an input\"", 2)]
+        [DataRow(",", 2)]
+        [DataRow("#", 2)]
         public void MatchesCorrectly_Length(string input, int desiredLength)
         {
             var tokens = GetTokens(input);
@@ -71,10 +71,10 @@ namespace Fml.Tests.Scanner
         }
 
         [DataTestMethod]
-        [DataRow("[name]", new TokenKey[] { TokenKey.LeftSquareBracket, TokenKey.Value, TokenKey.RightSquareBracket })]
-        [DataRow("name\nname", new TokenKey[] { TokenKey.Value, TokenKey.NewLine, TokenKey.Value })]
-        [DataRow("name = fergus", new TokenKey[] { TokenKey.Value, TokenKey.Space, TokenKey.Equals, TokenKey.Space, TokenKey.Value })]
-        [DataRow("{name,name}", new TokenKey[] { TokenKey.LeftCurlyBrace, TokenKey.Value, TokenKey.Comma, TokenKey.Value, TokenKey.RightCurlyBrace })]
+        [DataRow("[name]", new TokenKey[] { TokenKey.LeftSquareBracket, TokenKey.Value, TokenKey.RightSquareBracket, TokenKey.EOF })]
+        [DataRow("name\nname", new TokenKey[] { TokenKey.Value, TokenKey.NewLine, TokenKey.Value, TokenKey.EOF })]
+        [DataRow("name = fergus", new TokenKey[] { TokenKey.Value, TokenKey.Space, TokenKey.Equals, TokenKey.Space, TokenKey.Value, TokenKey.EOF })]
+        [DataRow("{name,name}", new TokenKey[] { TokenKey.LeftCurlyBrace, TokenKey.Value, TokenKey.Comma, TokenKey.Value, TokenKey.RightCurlyBrace, TokenKey.EOF })]
         public void Test(string input, TokenKey[] expectedKeys)
         {
             var tokens = GetTokens(input);
@@ -103,7 +103,8 @@ namespace Fml.Tests.Scanner
                 TokenKey.Space,
                 TokenKey.Value,
                 TokenKey.Space,
-                TokenKey.Value
+                TokenKey.Value,
+                TokenKey.EOF,
             };
 
             var tokens = GetTokens(builder.ToString());
@@ -146,7 +147,8 @@ namespace Fml.Tests.Scanner
                 TokenKey.Space,
                 TokenKey.Value,
                 TokenKey.NewLine,
-                TokenKey.Value
+                TokenKey.Value,
+                TokenKey.EOF,
             };
 
             var tokens = GetTokens(builder.ToString());

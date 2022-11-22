@@ -12,5 +12,6 @@
         Comma,
         NewLine,
         Pound,
+        EOF,
     }
 }

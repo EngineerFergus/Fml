@@ -6,7 +6,7 @@ Welcome to Fergus' Minimal Language (fml). It is essentially a direct rip off of
 
 ```ini
 [app]
-name = Image Annotator
+name = Image Annotator # inline comment
 version = v0.1-beta
 data = 1977-01-01
 

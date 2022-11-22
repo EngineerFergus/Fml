@@ -37,7 +37,15 @@ namespace Fml.AST
 
             List<FmlToken> line = ObtainLine();
 
-            if(line.Count == 0) { return false; }
+            if(line.Count == 0) 
+            {
+                if (Current().Key == TokenKey.NewLine)
+                {
+                    Advance();
+                }
+
+                return false;
+            }
 
             if(line.First().Key == TokenKey.LeftSquareBracket)
             {
@@ -84,11 +92,6 @@ namespace Fml.AST
         private void ConsumeToLineEnd()
         {
             while (Current().Key != TokenKey.NewLine && !IsAtEnd())
-            {
-                Advance();
-            }
-
-            if (!IsAtEnd())
             {
                 Advance();
             }

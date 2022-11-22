@@ -1,2 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+global using Fml;
+
+FmlMap map = FmlMap.ReadFile("ExampleA.fml");
+Console.WriteLine(map);

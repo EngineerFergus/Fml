@@ -17,6 +17,11 @@ namespace Fml
 
         private readonly List<Expr> _exprs;
 
+        private FmlMap()
+        {
+            _exprs = new List<Expr>();
+        }
+
         private FmlMap(TextReader reader)
         {
             FmlScanner scanner = new();
@@ -72,6 +77,32 @@ namespace Fml
             }
         }
 
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            foreach(var pair in GlobalPairs)
+            {
+                builder.AppendLine($"{pair.Key} = {pair.Value}");
+            }
+
+            builder.AppendLine();
+
+            foreach(var section in Sections)
+            {
+                builder.AppendLine($"[{section.Key}]");
+                
+                foreach (var pair in section.Value)
+                {
+                    builder.AppendLine($"{pair.Key} = {pair.Value}");
+                }
+
+                builder.AppendLine();
+            }
+
+            return builder.ToString();
+        }
+
         public static FmlMap ReadFile(string filePath)
         {
             using TextReader reader = new StreamReader(filePath);
@@ -83,6 +114,11 @@ namespace Fml
             FmlMap map = new FmlMap(reader);
             map.MapExprs();
             return map;
+        }
+
+        public static FmlMap EmptyMap()
+        {
+            return new FmlMap();
         }
     }
 }

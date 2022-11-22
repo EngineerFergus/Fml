@@ -1,6 +1,7 @@
 ﻿using Fml.AST;
 using Fml.Core;
 using Fml.Scanner;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fml.Tests.AST
 {
@@ -64,6 +65,26 @@ namespace Fml.Tests.AST
         public void ImproperInputThrowsException(string input)
         {
             Assert.ThrowsException<Exception>(() => { _ = ParseInput(input); });
+        }
+
+        [TestMethod]
+        public void HandlesInLineComments()
+        {
+            string input = "version = 1 # this is the version\n" +
+                "app = annotator";
+
+            var exprs = ParseInput(input);
+            Assert.AreEqual(2, exprs.Count);
+        }
+
+        [TestMethod]
+        public void HandlesFullLineComments()
+        {
+            string input = "# this is a comment\n" +
+                "app = annotator";
+
+            var exprs = ParseInput(input);
+            Assert.AreEqual(1, exprs.Count);
         }
     }
 }

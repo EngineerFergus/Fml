@@ -24,7 +24,7 @@ namespace Fml.Tests
         public void MapsGlobals_Length()
         {
             FmlMap map = MapInput(_globalInputs);
-            Assert.AreEqual(3, map.GlobalPairs.Count);
+            Assert.AreEqual(3, map.GlobalSettings.Count);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace Fml.Tests
 
             foreach (KeyValuePair<string, string> pair in pairs)
             {
-                Assert.IsTrue(map.GlobalPairs.Contains(pair));
+                Assert.IsTrue(map.GlobalSettings.Contains(pair));
             }
         }
 
@@ -80,7 +80,7 @@ namespace Fml.Tests
         public void MapsSections_NoGlobals()
         {
             FmlMap map = MapInput(_sectionInputs);
-            Assert.AreEqual(0, map.GlobalPairs.Count);
+            Assert.AreEqual(0, map.GlobalSettings.Count);
         }
 
         [TestMethod]
@@ -136,7 +136,7 @@ namespace Fml.Tests
         {
             FmlMap map = MapInput(_globalInputs + _sectionInputs);
 
-            Assert.AreEqual(3, map.GlobalPairs.Count);
+            Assert.AreEqual(3, map.GlobalSettings.Count);
         }
 
         [TestMethod]

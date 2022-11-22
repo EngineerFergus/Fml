@@ -11,7 +11,7 @@ namespace Fml
 {
     public class FmlMap
     {
-        public Dictionary<string, string> GlobalPairs { get; } = new();
+        public Dictionary<string, string> GlobalSettings { get; } = new();
 
         public Dictionary<string, Dictionary<string, string>> Sections { get; } = new();
 
@@ -65,14 +65,14 @@ namespace Fml
                 }
                 else
                 {
-                    if (GlobalPairs.ContainsKey(expr.Identifier.Contents))
+                    if (GlobalSettings.ContainsKey(expr.Identifier.Contents))
                     {
                         throw new Exception($"Cannot have multiple identifiers of the same name, " +
                             $"identifier :{expr.Identifier.Contents}, line: {expr.Identifier.Line}");
                     }
 
                     FmlToken value = expr.Value ?? throw new Exception($"Retrieved a null value token, {expr.Identifier.Line}");
-                    GlobalPairs.Add(expr.Identifier.Contents, value.Contents);
+                    GlobalSettings.Add(expr.Identifier.Contents, value.Contents);
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace Fml
         {
             StringBuilder builder = new StringBuilder();
 
-            foreach(var pair in GlobalPairs)
+            foreach(var pair in GlobalSettings)
             {
                 builder.AppendLine($"{pair.Key} = {pair.Value}");
             }

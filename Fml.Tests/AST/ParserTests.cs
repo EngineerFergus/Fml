@@ -6,14 +6,14 @@ namespace Fml.Tests.AST
     [TestClass]
     public class ParserTests
     {
-        private Parser MakeParser(string input)
+        private static Parser MakeParser(string input)
         {
             FmlScanner scanner = new FmlScanner();
             var tokens = scanner.Tokenize(new StringReader(input));
             return new Parser(tokens);
         }
 
-        private List<Expr> ParseInput(string input)
+        private static List<Expr> ParseInput(string input)
         {
             var parser = MakeParser(input);
             return parser.Parse();
@@ -24,6 +24,8 @@ namespace Fml.Tests.AST
         [DataRow(" [app] ", 1)]
         [DataRow("version = 4.3.1.1", 1)]
         [DataRow("[app]\n version = 4.3.1.1", 2)]
+        [DataRow("[app]\n#comment", 1)]
+        [DataRow("[app]#comment", 1)]
         public void ParsesExpression_Length(string input, int expectedLength)
         {
             var exprs = ParseInput(input);
@@ -35,6 +37,7 @@ namespace Fml.Tests.AST
         [DataRow(" [app] ", "app")]
         [DataRow("version = 4.3.1.1", "version")]
         [DataRow("version = v4.3 beta", "version")]
+        [DataRow("version = v4.3 beta # comment", "version")]
         public void ParsesExpression_Identifier(string input, string identifier)
         {
             var exprs = ParseInput(input);
@@ -45,6 +48,7 @@ namespace Fml.Tests.AST
         [DataRow("version = 4.3.1.1", "4.3.1.1")]
         [DataRow("version = v4.3 beta", "v4.3 beta")]
         [DataRow("version = []Hello wild input", "[]Hello wild input")]
+        [DataRow("version = 4.3.1.1 # this is a comment", "4.3.1.1")]
         public void ParsesExpression_Value(string input, string value)
         {
             var exprs = ParseInput(input);

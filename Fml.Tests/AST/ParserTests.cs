@@ -1,4 +1,5 @@
 ﻿using Fml.AST;
+using Fml.Core;
 using Fml.Scanner;
 
 namespace Fml.Tests.AST
@@ -52,7 +53,8 @@ namespace Fml.Tests.AST
         public void ParsesExpression_Value(string input, string value)
         {
             var exprs = ParseInput(input);
-            Assert.AreEqual(value, exprs[0].Values[0].Contents);
+            FmlToken val = exprs[0].Value ?? throw new Exception("Got null value");
+            Assert.AreEqual(value, val.Contents);
         }
 
         [DataTestMethod]

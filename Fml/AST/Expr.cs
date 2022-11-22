@@ -6,13 +6,13 @@ namespace Fml.AST
     {
         public ExprKey Key { get; }
         public FmlToken Identifier { get; }
-        public FmlToken[] Values { get; }
+        public FmlToken? Value { get; }
 
-        public Expr(ExprKey key, FmlToken identifier, FmlToken[] values)
+        public Expr(ExprKey key, FmlToken identifier, FmlToken? value)
         {
             Key = key;
             Identifier = identifier;
-            Values = values;
+            Value = value;
         }
     }
 }

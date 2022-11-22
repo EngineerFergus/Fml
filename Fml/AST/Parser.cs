@@ -173,7 +173,7 @@ namespace Fml.AST
                 value = value.MakeWithCombinedContents(line[i]);
             }
 
-            return new Expr(ExprKey.Assignment, line[0], new[] { value });
+            return new Expr(ExprKey.Assignment, line[0], value);
         }
 
         private Expr Section(List<FmlToken> line)
@@ -208,7 +208,7 @@ namespace Fml.AST
                 value = value.MakeWithCombinedContents(line[i]);
             }
 
-            return new Expr(ExprKey.Section, value, Array.Empty<FmlToken>());
+            return new Expr(ExprKey.Section, value, null);
         }
 
         private static bool HasBalancedBraces(IEnumerable<FmlToken> line)
